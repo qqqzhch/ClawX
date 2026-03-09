@@ -206,7 +206,7 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col px-2 gap-0.5 pb-4">
+      <nav className="flex flex-col px-2 gap-0.5">
         {/* Chat nav item: acts as "New Chat" button, never highlighted as active */}
         <button
           onClick={() => {
@@ -233,55 +233,55 @@ export function Sidebar() {
             collapsed={sidebarCollapsed}
           />
         ))}
-
-        {/* Session list — below Settings, only when expanded */}
-        {!sidebarCollapsed && sessions.length > 0 && (
-          <div className="mt-4 space-y-0.5">
-            {sessionBuckets.map((bucket) => (
-              bucket.sessions.length > 0 ? (
-                <div key={bucket.key} className="pt-2">
-                  <div className="px-2.5 pb-1 text-[11px] font-medium text-muted-foreground/60 tracking-tight">
-                    {bucket.label}
-                  </div>
-                  {bucket.sessions.map((s) => (
-                    <div key={s.key} className="group relative flex items-center">
-                      <button
-                        onClick={() => { switchSession(s.key); navigate('/'); }}
-                        className={cn(
-                          'w-full text-left rounded-lg px-2.5 py-1.5 text-[13px] truncate transition-colors pr-7',
-                          'hover:bg-black/5 dark:hover:bg-white/5',
-                          isOnChat && currentSessionKey === s.key
-                            ? 'bg-black/5 dark:bg-white/10 text-foreground font-medium'
-                            : 'text-foreground/75',
-                        )}
-                      >
-                        {getSessionLabel(s.key, s.displayName, s.label)}
-                      </button>
-                      <button
-                        aria-label="Delete session"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSessionToDelete({
-                            key: s.key,
-                            label: getSessionLabel(s.key, s.displayName, s.label),
-                          });
-                        }}
-                        className={cn(
-                          'absolute right-1 flex items-center justify-center rounded p-0.5 transition-opacity',
-                          'opacity-0 group-hover:opacity-100',
-                          'text-muted-foreground hover:text-destructive hover:bg-destructive/10',
-                        )}
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : null
-            ))}
-          </div>
-        )}
       </nav>
+
+      {/* Session list — below Settings, only when expanded */}
+      {!sidebarCollapsed && sessions.length > 0 && (
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 mt-4 space-y-0.5 pb-2">
+          {sessionBuckets.map((bucket) => (
+            bucket.sessions.length > 0 ? (
+              <div key={bucket.key} className="pt-2">
+                <div className="px-2.5 pb-1 text-[11px] font-medium text-muted-foreground/60 tracking-tight">
+                  {bucket.label}
+                </div>
+                {bucket.sessions.map((s) => (
+                  <div key={s.key} className="group relative flex items-center">
+                    <button
+                      onClick={() => { switchSession(s.key); navigate('/'); }}
+                      className={cn(
+                        'w-full text-left rounded-lg px-2.5 py-1.5 text-[13px] truncate transition-colors pr-7',
+                        'hover:bg-black/5 dark:hover:bg-white/5',
+                        isOnChat && currentSessionKey === s.key
+                          ? 'bg-black/5 dark:bg-white/10 text-foreground font-medium'
+                          : 'text-foreground/75',
+                      )}
+                    >
+                      {getSessionLabel(s.key, s.displayName, s.label)}
+                    </button>
+                    <button
+                      aria-label="Delete session"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSessionToDelete({
+                          key: s.key,
+                          label: getSessionLabel(s.key, s.displayName, s.label),
+                        });
+                      }}
+                      className={cn(
+                        'absolute right-1 flex items-center justify-center rounded p-0.5 transition-opacity',
+                        'opacity-0 group-hover:opacity-100',
+                        'text-muted-foreground hover:text-destructive hover:bg-destructive/10',
+                      )}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : null
+          ))}
+        </div>
+      )}
 
       {/* Footer */}
       <div className="p-2 mt-auto">

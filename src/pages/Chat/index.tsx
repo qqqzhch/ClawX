@@ -108,7 +108,7 @@ export function Chat() {
   const isEmpty = messages.length === 0 && !loading && !sending;
 
   return (
-    <div className={cn("flex flex-col -m-6 transition-colors duration-500", isEmpty ? "bg-[#F3F1E8] dark:bg-background" : "")} style={{ height: 'calc(100vh - 2.5rem)' }}>
+    <div className={cn("flex flex-col -m-6 transition-colors duration-500 dark:bg-background")} style={{ height: 'calc(100vh - 2.5rem)' }}>
       {/* Toolbar */}
       <div className="flex shrink-0 items-center justify-end px-4 py-2">
         <ChatToolbar />
